@@ -6,6 +6,7 @@ The memory pool is same as Kestrel's which is a SlabMemoryPool, which is used to
 
 Example can be found in TestArgs folder.
 
+-------------
 Memory usage with Echo server with 20k clients.
 One IOArgs is used per client. The IOArgs use buffer which is 4096 bytes.
 ![GitHub Logo](/images/diagnostics.png)
