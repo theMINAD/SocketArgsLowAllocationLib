@@ -103,3 +103,9 @@ static void Main(string[] args)
   Console.ReadKey();
 }
 ```
+-------------
+
+
+Conclusion. The library should be pretty easy to work with.
+Just remember to Dispose the args when you don't have use for them anymore.
+I will rename this project at some point. It should be stable tho :v)
