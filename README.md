@@ -12,6 +12,7 @@ One IOArgs is used per client. The IOArgs use buffer which is 4096 bytes.
 
 -------------
 
+
 Working with IOArgs:
 ```cs
 public IOArgs ArgsFromStringExample()
@@ -41,7 +42,7 @@ class TcpConnection : TcpHandler
   
   protected override void OnConnect(IOArgs args)
   {
-    IOArgs exampleStringArgs = ArgsFromStringExample(); //User our example
+    IOArgs exampleStringArgs = ArgsFromStringExample(); //Use our example method.
   
     SendArgs(exampleStringArgs); //Send our example string.
     Send("And bye bye :v)!"); //You can send Memory<byte> or strings, which will be copied to pooled buffer
@@ -79,5 +80,26 @@ class TcpConnection : TcpHandler
   {
     Console.WriteLine("Dispose completed!");
   }
+}
+
+static void Main(string[] args)
+{
+  //Our eventloop queue:
+  IOQueue ioQueue = new IOQueue();
+  
+  //Target end point:
+  IPEndPoint target = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555));
+  
+  //Lets create two of our instances that run on same IOQueue:
+  TcpConnection connection1 = new TcpConnection(ioQueue);
+  TcpConnection connection2 = new TcpConnection(ioQueue);
+  
+  //Begin to connect:
+  connection1.Connect(target);
+  connection2.Connect(target);
+  
+  //Since the methods of TcpHandler never block.
+  //Lets waith with Console.ReadKey() so our application won't exit.
+  Console.ReadKey();
 }
 ```
