@@ -36,12 +36,11 @@ namespace TestArgs.Handlers
         {
             Console.WriteLine($"Connected to { RemoteEndPoint.ToString()} ");
 
-            //Send data:
-            //Sending string or Memory<byte> will automaticly create IOArgs.
-            Send($"HELLO FROM { LocalEndPoint }");
+            //Sending string or Memory<byte> will automaticly create IOArgs with pooled buffer.
+            //Send($"HELLO FROM { LocalEndPoint }");
 
-            //Recv data:
-            DoReceive(args);
+            args.SetBuffer($"HELLO FROM { LocalEndPoint }"); //Copy string to our IOArg's buffer.
+            SendArgs(args);
         }
 
         public void DoReceive(IOArgs args)
